@@ -1,0 +1,22 @@
+GET http://localhost:5000 http/1.1
+###
+POST  http://localhost:5000/user/create http/1.1
+Content-Type: "application/json"
+
+{
+    "name": "eduardo",
+    "email": "eduardo@gmail.com",
+    "password": "eduardo"
+}
+###
+POST  http://localhost:5000/user/login http/1.1
+Content-Type: "application/json"
+
+{
+    "email": "luis@gmail.com",
+    "password": "luis"
+}
+###
+GET http://localhost:5000/posts http/1.1
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE3MjA0ODk3MjR9.HjAuEd-6bDvKj9fJqlE4BLcuvHTFMiNjCZWxhIwfevg
+###
