@@ -14,6 +14,7 @@ import (
 func main() {
 	db.Conn()
 	db.DB.AutoMigrate(models.User{})
+	db.DB.AutoMigrate(models.Post{})
 
 	r := mux.NewRouter()
 
@@ -30,7 +31,11 @@ func main() {
 	privateRouter.Use(auth.IsAuthorized)
 
 	//Posts
-	privateRouter.HandleFunc("/posts", routes.GetAllPosts).Methods("GET")
+	r.HandleFunc("/posts", routes.GetAllPosts).Methods("GET")
+	r.HandleFunc("/post/{id:[0-9]+}", routes.GetPost).Methods("GET")
+	privateRouter.HandleFunc("/post/add", routes.CreatePost).Methods("POST")                      //Add
+	privateRouter.HandleFunc("/post/edit/{postID:[0-9]+}", routes.UpdatePost).Methods("PUT")      //Edit
+	privateRouter.HandleFunc("/post/delete/{postID:[0-9]+}", routes.DeletePost).Methods("DELETE") // Deltet
 
 	err := http.ListenAndServe(":5000", r)
 	log.Fatal(err)

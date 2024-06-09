@@ -16,7 +16,7 @@ func CreateToken() string {
 	token := jwt.New(jwt.SigningMethodHS256)
 	claims := token.Claims.(jwt.MapClaims)
 	claims["authorized"] = true
-	claims["exp"] = time.Now().Add(time.Hour * (24 * 30)).Unix()
+	claims["exp"] = time.Now().Add(time.Hour * (24 * 30)).Unix() // 30 days
 	tokenString, err := token.SignedString(jwtpassword)
 
 	if err != nil {
