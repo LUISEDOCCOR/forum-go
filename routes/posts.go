@@ -6,13 +6,14 @@ import (
 
 	"github.com/LUISEDOCCOR/api/db"
 	"github.com/LUISEDOCCOR/api/models"
+	"github.com/LUISEDOCCOR/api/types"
 	"github.com/LUISEDOCCOR/api/utils"
 	"github.com/gorilla/mux"
 )
 
-func GetAllPosts(w http.ResponseWriter, r *http.Request) {
+func GetAllPostsPreview(w http.ResponseWriter, r *http.Request) {
 	var posts []models.Post
-	db.DB.Find(&posts)
+	db.DB.Limit(10).Find(&posts)
 	json.NewEncoder(w).Encode(posts)
 }
 
@@ -36,9 +37,11 @@ func GetPost(w http.ResponseWriter, r *http.Request) {
 }
 
 func CreatePost(w http.ResponseWriter, r *http.Request) {
-	var post models.Post
+	var postData types.PostData
 	decoder := json.NewDecoder(r.Body)
-	err := decoder.Decode(&post)
+	err := decoder.Decode(&postData)
+
+	credentialsUser := r.Context().Value("credentialsUser").(types.CredentialsUser)
 
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
@@ -47,12 +50,18 @@ func CreatePost(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if post.Title == "" || post.Content == "" {
+	if postData.Title == "" || postData.Content == "" {
 		w.WriteHeader(http.StatusBadRequest)
 		response := utils.CreateResponse("error", "Invalid data")
 		json.NewEncoder(w).Encode(response)
 		return
 	}
+
+	var post models.Post
+	post.Author = credentialsUser.Name
+	post.UserId = credentialsUser.ID
+	post.Title = postData.Title
+	post.Content = postData.Content
 
 	result := db.DB.Create(&post)
 

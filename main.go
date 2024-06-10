@@ -32,7 +32,7 @@ func main() {
 	privateRouter.Use(auth.IsAuthorized)
 
 	//Posts
-	r.HandleFunc("/posts", routes.GetAllPosts).Methods("GET")
+	r.HandleFunc("/posts/preview", routes.GetAllPostsPreview).Methods("GET")
 	r.HandleFunc("/post/{id:[0-9]+}", routes.GetPost).Methods("GET")
 	privateRouter.HandleFunc("/post/add", routes.CreatePost).Methods("POST")                      //Add
 	privateRouter.HandleFunc("/post/edit/{postID:[0-9]+}", routes.UpdatePost).Methods("PUT")      //Edit

@@ -49,7 +49,7 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	token := auth.CreateToken()
+	token := auth.CreateToken(user.Name, user.ID)
 	response := utils.CreateResponse("success", token)
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(response)
@@ -106,7 +106,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.WriteHeader(http.StatusOK)
-	token := auth.CreateToken()
+	token := auth.CreateToken(user.Name, user.ID)
 	response := utils.CreateResponse("success", token)
 	json.NewEncoder(w).Encode(response)
 }

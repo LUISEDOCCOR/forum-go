@@ -4,39 +4,37 @@ POST  http://localhost:5000/user/create http/1.1
 Content-Type: "application/json"
 
 {
-    "name": "eduardo",
-    "email": "eduardo@gmail.com",
-    "password": "eduardo"
+    "name": "dev",
+    "email": "dev@dev.com",
+    "password": "dev"
 }
 ###
 POST  http://localhost:5000/user/login http/1.1
 Content-Type: "application/json"
 
 {
-    "email": "eduardo@gmail.com",
-    "password": "eduardo"
+    "email": "dev@dev.com",
+    "password": "dev"
 }
 ###
-GET http://localhost:5000/posts http/1.1
+GET http://localhost:5000/posts/preview http/1.1
 ###
 GET http://localhost:5000/post/1 http/1.1
 ###
 POST  http://localhost:5000/post/add http/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE3MjA1NDczMjF9.mRajD_SWl0dkSpVqQCSS_Oe4L_5YQsBTleB7RfMHYl0
-Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE3MjA2NTA5MjMsImlkIjozLCJuYW1lIjoiZGV2In0.Q9ey3W-tVQeGqqPO54de1uyYe-GL_4VEHHucfQ013FM
 
 {
-    "user_id": 34,
-    "title": "first post",
-    "content": "first body post"
+    "title": "miudev pasado ahora afot",
+    "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque rutrum sed felis nec tempus. Vivamus interdum sapien at augue feugiat vulputate. Suspendisse suscipit libero a congue commodo. Fusce faucibus eget urna a convallis. Proin nisi felis, pharetra vel elit ut, pulvinar posuere ex. Nam eget aliquet quam."
 }   
 ###
-DELETE   http://localhost:5000/post/delete/2 http/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE3MjA1NDczMjF9.mRajD_SWl0dkSpVqQCSS_Oe4L_5YQsBTleB7RfMHYl0
+DELETE   http://localhost:5000/post/delete/8 http/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE3MjA2NTA5MjMsImlkIjozLCJuYW1lIjoiZGV2In0.Q9ey3W-tVQeGqqPO54de1uyYe-GL_4VEHHucfQ013FM
 Content-Type: application/json
 ###
-PUT  http://localhost:5000/post/edit/10 http/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE3MjA1NDczMjF9.mRajD_SWl0dkSpVqQCSS_Oe4L_5YQsBTleB7RfMHYl0
+PUT  http://localhost:5000/post/edit/1 http/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE3MjA2NTA5MjMsImlkIjozLCJuYW1lIjoiZGV2In0.Q9ey3W-tVQeGqqPO54de1uyYe-GL_4VEHHucfQ013FM
 Content-Type: application/json
 
 {

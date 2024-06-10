@@ -27,7 +27,6 @@ func Conn() {
 	dbPort := os.Getenv("PORT")
 
 	dns := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s", dbHost, dbUser, dbPassword, dbName, dbPort)
-	fmt.Println(dns)
 
 	var error error
 	DB, error = gorm.Open(postgres.Open(dns), &gorm.Config{})
