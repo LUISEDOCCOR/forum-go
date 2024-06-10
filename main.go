@@ -8,6 +8,7 @@ import (
 	"github.com/LUISEDOCCOR/api/db"
 	"github.com/LUISEDOCCOR/api/models"
 	"github.com/LUISEDOCCOR/api/routes"
+	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 )
 
@@ -37,6 +38,10 @@ func main() {
 	privateRouter.HandleFunc("/post/edit/{postID:[0-9]+}", routes.UpdatePost).Methods("PUT")      //Edit
 	privateRouter.HandleFunc("/post/delete/{postID:[0-9]+}", routes.DeletePost).Methods("DELETE") // Deltet
 
-	err := http.ListenAndServe(":5000", r)
+	err := http.ListenAndServe(":5000", handlers.CORS(
+		handlers.AllowedOrigins([]string{"*"}),
+		handlers.AllowedMethods([]string{"GET", "POST", "PUT", "DELETE"}),
+		handlers.AllowedHeaders([]string{"X-Requested-With", "Content-Type", "Authorization"}),
+	)(r))
 	log.Fatal(err)
 }

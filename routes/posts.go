@@ -135,5 +135,4 @@ func UpdatePost(w http.ResponseWriter, r *http.Request) {
 	response := utils.CreateResponse("success", "update successfully")
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(response)
-
 }

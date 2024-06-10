@@ -13,8 +13,8 @@ POST  http://localhost:5000/user/login http/1.1
 Content-Type: "application/json"
 
 {
-    "email": "luis@gmail.com",
-    "password": "luis"
+    "email": "eduardo@gmail.com",
+    "password": "eduardo"
 }
 ###
 GET http://localhost:5000/posts http/1.1
