@@ -32,8 +32,10 @@ func main() {
 	privateRouter.Use(auth.IsAuthorized)
 
 	//Posts
-	r.HandleFunc("/posts/preview", routes.GetAllPostsPreview).Methods("GET")
-	r.HandleFunc("/post/{id:[0-9]+}", routes.GetPost).Methods("GET")
+	r.HandleFunc("/posts/preview", routes.GetAllPostsPreview).Methods("GET")                      //preview
+	privateRouter.HandleFunc("/post/{id:[0-9]+}", routes.GetPost).Methods("GET")                  // 1 post
+	privateRouter.HandleFunc("/posts", routes.GetAllPosts).Methods("GET")                         // posts when user is loged
+	privateRouter.HandleFunc("/myposts", routes.GetMyPosts).Methods("GET")                        // get only my posts
 	privateRouter.HandleFunc("/post/add", routes.CreatePost).Methods("POST")                      //Add
 	privateRouter.HandleFunc("/post/edit/{postID:[0-9]+}", routes.UpdatePost).Methods("PUT")      //Edit
 	privateRouter.HandleFunc("/post/delete/{postID:[0-9]+}", routes.DeletePost).Methods("DELETE") // Deltet

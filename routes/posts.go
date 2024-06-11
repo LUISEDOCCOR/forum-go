@@ -14,7 +14,22 @@ import (
 func GetAllPostsPreview(w http.ResponseWriter, r *http.Request) {
 	var posts []models.Post
 	db.DB.Limit(10).Find(&posts)
+	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(posts)
+}
+
+func GetAllPosts(w http.ResponseWriter, r *http.Request) {
+	var Posts []models.Post
+	db.DB.Find(&Posts)
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(Posts)
+}
+func GetMyPosts(w http.ResponseWriter, r *http.Request) {
+	credentialsUser := r.Context().Value("credentialsUser").(types.CredentialsUser)
+	var Posts []models.Post
+	db.DB.Where("user_id = ?", credentialsUser.ID).Find(&Posts)
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(Posts)
 }
 
 func GetPost(w http.ResponseWriter, r *http.Request) {
@@ -78,11 +93,13 @@ func CreatePost(w http.ResponseWriter, r *http.Request) {
 }
 
 func DeletePost(w http.ResponseWriter, r *http.Request) {
+	credentialsUser := r.Context().Value("credentialsUser").(types.CredentialsUser)
+
 	var post models.Post
 	params := mux.Vars(r)
 	postID := params["postID"]
 
-	result := db.DB.Delete(&post, postID)
+	result := db.DB.Where("user_id = ?", credentialsUser.ID).Delete(&post, postID)
 
 	if result.Error != nil {
 		w.WriteHeader(http.StatusBadRequest)
@@ -93,7 +110,7 @@ func DeletePost(w http.ResponseWriter, r *http.Request) {
 
 	if result.RowsAffected == 0 {
 		w.WriteHeader(http.StatusBadRequest)
-		response := utils.CreateResponse("error", "Post not found")
+		response := utils.CreateResponse("error", "The post is not yours")
 		json.NewEncoder(w).Encode(response)
 		return
 	}
@@ -106,11 +123,19 @@ func DeletePost(w http.ResponseWriter, r *http.Request) {
 func UpdatePost(w http.ResponseWriter, r *http.Request) {
 	var post models.Post
 	var currentPost models.Post
+	credentialsUser := r.Context().Value("credentialsUser").(types.CredentialsUser)
 
 	params := mux.Vars(r)
 	postID := params["postID"]
 
-	result := db.DB.First(&currentPost, postID)
+	result := db.DB.Where("user_id = ?", credentialsUser.ID).First(&currentPost, postID)
+
+	if currentPost.ID == 0 {
+		w.WriteHeader(http.StatusBadRequest)
+		response := utils.CreateResponse("error", "The post is not yours")
+		json.NewEncoder(w).Encode(response)
+		return
+	}
 
 	if result.Error != nil {
 		w.WriteHeader(http.StatusBadRequest)

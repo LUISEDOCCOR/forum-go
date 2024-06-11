@@ -19,7 +19,9 @@ Content-Type: "application/json"
 ###
 GET http://localhost:5000/posts/preview http/1.1
 ###
-GET http://localhost:5000/post/1 http/1.1
+GET http://localhost:5000/post/20 http/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE3MjA2NjYxNDMsImlkIjozLCJuYW1lIjoiZGV2In0.Vm3s2g-slUyimlFK4FpKmvpwcI4GSyV8XRN5J91NOPU
+
 ###
 POST  http://localhost:5000/post/add http/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE3MjA2NTA5MjMsImlkIjozLCJuYW1lIjoiZGV2In0.Q9ey3W-tVQeGqqPO54de1uyYe-GL_4VEHHucfQ013FM
@@ -27,11 +29,21 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0c
 {
     "title": "miudev pasado ahora afot",
     "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque rutrum sed felis nec tempus. Vivamus interdum sapien at augue feugiat vulputate. Suspendisse suscipit libero a congue commodo. Fusce faucibus eget urna a convallis. Proin nisi felis, pharetra vel elit ut, pulvinar posuere ex. Nam eget aliquet quam."
-}   
+} 
+###
+GET  http://localhost:5000/posts http/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE3MjA2NjYxNDMsImlkIjozLCJuYW1lIjoiZGV2In0.Vm3s2g-slUyimlFK4FpKmvpwcI4GSyV8XRN5J91NOPU
+###
+GET  http://localhost:5000/myposts http/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE3MjA2NjYxNDMsImlkIjozLCJuYW1lIjoiZGV2In0.Vm3s2g-slUyimlFK4FpKmvpwcI4GSyV8XRN5J91NOPU
 ###
 DELETE   http://localhost:5000/post/delete/8 http/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE3MjA2NTA5MjMsImlkIjozLCJuYW1lIjoiZGV2In0.Q9ey3W-tVQeGqqPO54de1uyYe-GL_4VEHHucfQ013FM
 Content-Type: application/json
+
+{
+
+}
 ###
 PUT  http://localhost:5000/post/edit/1 http/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE3MjA2NTA5MjMsImlkIjozLCJuYW1lIjoiZGV2In0.Q9ey3W-tVQeGqqPO54de1uyYe-GL_4VEHHucfQ013FM

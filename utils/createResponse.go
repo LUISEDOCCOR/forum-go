@@ -8,3 +8,14 @@ func CreateResponse(mode string, msg string) map[string]string {
 	return response
 
 }
+
+func CreateResponseAuth(token string, username string, id uint) map[string]map[string]interface{} {
+	var response = map[string]map[string]interface{}{
+		"data": {
+			"jwt":      token,
+			"username": username,
+			"id":       id,
+		},
+	}
+	return response
+}
