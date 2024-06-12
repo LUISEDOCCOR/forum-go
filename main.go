@@ -42,10 +42,7 @@ func main() {
 	privateRouter.HandleFunc("/post/edit/{postID:[0-9]+}", routes.UpdatePost).Methods("PUT")      //Edit
 	privateRouter.HandleFunc("/post/delete/{postID:[0-9]+}", routes.DeletePost).Methods("DELETE") // Deltet
 
-	ok := godotenv.Load()
-	if ok != nil {
-		log.Fatal("I don have .env file")
-	}
+	_ = godotenv.Load()
 
 	port := os.Getenv("PORT")
 	serverPort := "0.0.0.0:" + port

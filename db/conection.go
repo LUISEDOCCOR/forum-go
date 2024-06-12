@@ -14,10 +14,7 @@ var DB *gorm.DB
 
 func Conn() {
 
-	ok := godotenv.Load()
-	if ok != nil {
-		log.Fatal("I don have .env file")
-	}
+	_ = godotenv.Load()
 
 	dbHost := os.Getenv("HOST")
 	dbUser := os.Getenv("DBUSER")
