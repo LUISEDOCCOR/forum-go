@@ -11,9 +11,16 @@ import (
 
 	"github.com/LUISEDOCCOR/api/types"
 	"github.com/dgrijalva/jwt-go"
+	"github.com/joho/godotenv"
 )
 
 func getJwtPassword() []byte {
+
+	ok := godotenv.Load()
+	if ok != nil {
+		log.Fatal("I don have .env file")
+	}
+
 	jwtkey := os.Getenv("JWTKEY")
 	return []byte(jwtkey)
 }

@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -12,6 +11,7 @@ import (
 	"github.com/LUISEDOCCOR/api/routes"
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
+	"github.com/joho/godotenv"
 )
 
 func main() {
@@ -42,13 +42,17 @@ func main() {
 	privateRouter.HandleFunc("/post/edit/{postID:[0-9]+}", routes.UpdatePost).Methods("PUT")      //Edit
 	privateRouter.HandleFunc("/post/delete/{postID:[0-9]+}", routes.DeletePost).Methods("DELETE") // Deltet
 
+	ok := godotenv.Load()
+	if ok != nil {
+		log.Fatal("I don have .env file")
+	}
+
 	port := os.Getenv("PORT")
 	serverPort := "0.0.0.0:" + port
 
 	if port == "" {
 		port = "3000"
 	}
-	fmt.Println(serverPort)
 	err := http.ListenAndServe(serverPort, handlers.CORS(
 		handlers.AllowedOrigins([]string{"*"}),
 		handlers.AllowedOrigins([]string{"http://localhost:5173"}),
