@@ -3,7 +3,6 @@ package auth
 import (
 	"context"
 	"fmt"
-	"log"
 	"net/http"
 	"os"
 	"strings"
@@ -30,11 +29,7 @@ func CreateToken(name string, id uint) string {
 	claims["name"] = name
 	claims["id"] = id
 	claims["exp"] = time.Now().Add(time.Hour * (24 * 30)).Unix() // 30 days
-	tokenString, err := token.SignedString(jwtpassword)
-
-	if err != nil {
-		log.Fatal(err.Error())
-	}
+	tokenString, _ := token.SignedString(jwtpassword)
 
 	return tokenString
 
