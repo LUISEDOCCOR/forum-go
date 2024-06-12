@@ -1,8 +1,10 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/LUISEDOCCOR/api/auth"
 	"github.com/LUISEDOCCOR/api/db"
@@ -40,8 +42,17 @@ func main() {
 	privateRouter.HandleFunc("/post/edit/{postID:[0-9]+}", routes.UpdatePost).Methods("PUT")      //Edit
 	privateRouter.HandleFunc("/post/delete/{postID:[0-9]+}", routes.DeletePost).Methods("DELETE") // Deltet
 
-	err := http.ListenAndServe(":5000", handlers.CORS(
+	port := os.Getenv("PORT")
+	serverPort := "0.0.0.0:" + port
+
+	if port == "" {
+		port = "3000"
+	}
+	fmt.Println(serverPort)
+	err := http.ListenAndServe(serverPort, handlers.CORS(
 		handlers.AllowedOrigins([]string{"*"}),
+		handlers.AllowedOrigins([]string{"http://localhost:5173"}),
+		handlers.AllowedOrigins([]string{"https://forum-front-five.vercel.app"}),
 		handlers.AllowedMethods([]string{"GET", "POST", "PUT", "DELETE"}),
 		handlers.AllowedHeaders([]string{"X-Requested-With", "Content-Type", "Authorization"}),
 	)(r))
